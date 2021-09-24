@@ -1,0 +1,880 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<script src="meals.js"></script><!--json file-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+	<style>
+		/*css styles*/
+		body {
+			background: #fff1e6;
+		}
+		.container {
+			text-align: center;
+			align-items: center;
+			background: #E2ECE9;
+		}
+		.form-group {
+			border-style: solid;
+		}
+		.payment {
+			margin: 0.4em;
+			text-align: center;
+			align-items: center;
+			border-style: groove;
+		}
+		.main_menu {
+			border-style: double;
+			text-align: center;
+			align-items: center;
+			background: #FDE2E4;
+		}
+		.card-img-top {
+			border-style: outset;
+			height: 150px;
+			width: 250px;
+		}
+
+		.card {
+			border-style: outset;
+			align-items: center;
+			height: 500px;
+			background: #FDE2E4;
+			color: #073B4C;
+			padding: 50px;
+		}
+		.card-img-top:hover {
+			transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+		}
+		#total_order {
+			align-items: center;
+			
+			
+		}
+
+		.row {
+			padding: 10px;
+			text-align: center;
+			align-items: center;
+			text-align: center;
+			align-items: center;
+		}
+
+		.tr, .td {
+			padding: 10px;
+			text-align: center;
+			align-items: center;
+			height: 20px;
+			width: 20px;
+			border-style: groove;
+		}
+		.table {
+			padding: 10px;
+			text-align: center;
+			align-items: center;
+			margin: 0.4em;
+			background: #06D6A0;
+			color: #073B4C;
+			border-style: groove;
+		}
+		#credit_pay {
+			padding: 10px;
+			text-align: center;
+			align-items: center;
+		}
+		.catTitle {
+			padding: 60px;
+			text-align: center;
+			background: #f1e9da;
+			color: #073B4C;
+			font-size: 30px;
+		}
+		.card-title {
+			padding: 5px;
+			text-align: center;
+			color: #073B4C;
+			background: #EAE4E9;
+			font-size: 30px;
+		}
+
+		.sub {
+			padding: 10px;
+			background-color: black;
+		}
+
+		.Member
+		{
+			
+		text-align: center;
+		}
+
+		.header {
+			padding: 60px;
+			text-align: center;
+			background: #FFF1E6;
+			color: #073B4C;
+			font-size: 30px;
+		}
+
+		.Guest {
+			text-align: center;
+		}
+
+		.Manger {
+			text-align: center;
+		}
+		.login {
+			padding: 60px;
+			text-align: center;
+		}
+		.button {
+			padding: 10px;
+			text-align: center;
+		}
+
+		.visaPay, .list-group-item, .card-body {
+			padding: 2px;
+			text-align: center;
+			background: #F0EFEB;
+			color: #073B4C;
+			font-size: 20px;
+		}
+		.card-body {
+			padding: 2px;
+			text-align: center;
+		}
+
+		.list-group {
+			padding: 2px;
+			text-align: center;
+			background: #E2ECE9;
+			color: #073B4C;
+			font-size: 20px;
+		}
+		.titleOrder {
+			padding: 30px;
+			text-align: center;
+			background: #FFD400;
+			color: #073B4C;
+			font-size: 30px;
+		}
+		.card-text {
+			color: #073B4C;
+			font-size: 20px;
+		}
+	</style>
+
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+
+	
+
+
+	<div>
+		<div class="header">
+			<h1 class="title">Who Are You?That Want to Eat in Here?</h1>
+			<p>Best Russian Resturnt in Israel</p>
+
+
+			<div class="login col-sm-12 col-md-12 col-xl-12">
+				<form action="/action_page.php">
+					<div class="form-group">
+						<label for="email">Email:</label>
+						<input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+					</div>
+					<div class="form-group">
+						<label for="pwd">Password:</label>
+						<input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+					</div>
+					<div class="checkbox">
+						<label><input type="checkbox" name="remember"> Remember me</label>
+					</div>
+
+				</form>
+			</div>
+
+			<input type="submit" class="login" onclick="Member()" value="login as a Member">
+			<input type="submit" class="login" onclick="Guest()" value="login as a Guest">
+			<input type="submit" class="login" onclick="Manger()" value="login as a Manger">
+			<input type="submit" class="login" onclick="RESET()" value="RESET">
+
+
+		</div>
+		
+				
+
+			</div>
+
+		</div>
+
+
+		<!-- css container -->
+		<div class="container col-sm-12 col-md-12 col-xl-12">
+
+
+
+			<form action="/action_page.php" class="Manger  col-sm-12 col-md-8 col-xl-8">
+				<label for="addDishes">Dish Editor</label>
+				<div class="form-group" id="addDishes">
+					<label for="Catagory_number">Catagory number</label>
+					<input type="text" class="form-control" id="CatForm" placeholder="Enter Catagory number" name="Catagory_number">
+
+
+					<label for="Dish_name">Dish name:</label>
+					<input type="text" class="form-control" id="nameForm" placeholder="Enter Dish Name" name="Dish_name">
+
+					<label for="Dish_description">Dish Description</label>
+					<input type="text" class="form-control" id="desForm" placeholder="Enter Dish description" name="Dish_description">
+
+					<label for="Dish_value">Dish value</label>
+					<input type="text" class="form-control" id="valForm" placeholder="Enter Dish Value" name="Dish_value">
+
+					<label for="Dish_member_value">Dish member value</label>
+					<input type="text" class="form-control" id="specialValForm" placeholder="Enter Dish Member Value" name="Dish_member_value">
+
+					<label for="Dish_picture">Dish picture</label>
+					<input type="text" class="form-control" id="picForm" placeholder="Dish picture URL" name="Dish_picture">
+
+				</div>
+
+
+				<input type="button" value="Submit" onclick="addNewDishToCat(Catagory_number.value,Dish_name.value,Dish_description.value,Dish_value.value,Dish_member_value.value,Dish_picture.value)">
+			</form>
+
+			<div class=" col-sm-12 col-md-8 Manger Member Guest" id="order_Managment">
+				<table id="orderTable" class="col-sm-12 col-md-12"></table>
+			</div>
+
+
+
+			<div class=" col-sm-12 col-md-12 col-xl-12 Manger Member Guest" id="main_menu">
+				<div class="row">
+					<div class="row Manger Member Guest col-sm-12 col-md-6 col-xl-9">
+						<div class="col-sm-12 col-md-6 col-xl-6 Member Guest Manger" id="cat_0">
+
+						</div>
+
+						<div class="col-sm-12 col-md-6 col-xl-6 Member Guest Manger" id="cat_1">
+
+						</div>
+						<div class="row col-sm-12 col-md-12 col-xl-12 Member Guest Manger">
+
+						</div>
+					</div>
+
+					<div class=" Member Guest col-sm-12 col-md-6 col-xl-3 payment " id="total_pay">
+						<div>
+							<p class="Guest payment col-sm-12 col-md-12 col-xl-12" id="total_sum"><h1> </h1></p>
+						</div>
+						<div>
+							<p class="Member payment col-sm-12 col-md-12 col-xl-12" id="total_sum_member"> <h1></h1></p>
+						</div>
+						<div class="col-sm-12 col-md-12 col-xl-12 Member Guest Manger payment" id="total_order">
+							<div><p><h1>Cart</h1></p></div>
+						</div>
+						<div class=" col-sm-12 col-md-12 col-xl-12 Member Guest payment" id="credit_pay">
+
+
+							<div class="visaPay  Member Guest payment col-sm-12 col-md-12 col-xl-12">
+								<div><img src="https://img.icons8.com/ios-filled/50/000000/visa.png" width="60" height="80" /></div>
+								<div>
+									<label for="Card_Holder">CardHolder:</label>
+									<input type="text" class="form-control" id="Card_Holder" placeholder="Enter first Name and Last Name" name="Card_Holder">
+
+									<label for="address_Holder">address Holder:</label>
+									<input type="text" class="form-control" id="address_Holder" placeholder="Enter address for shipment " name="address_Holder" autocomplete="on">>
+
+									<label for="card_number">card number:</label>
+									<input type="text" class="form-control" id="card_number" placeholder="Enter card Number " name="card_number">
+
+									<label for="cvv_card_number">cvv card number:</label>
+									<input type="text" class="form-control" id="cvv_card_number" placeholder="Enter cvv Number " name="cvv_card_number">
+
+									<div id="payButton">
+
+									</div>
+									<div>
+										<span class="head">Total amount due</span>
+										<div><span class="dollar">$</span><span class="amount" id="finalPayment"></span></div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="Member col-sm-12 col-md-12 col-xl-12" id="favorite_div">
+
+				<p><h1>Favorites</h1></p>
+			</div>
+
+		</div>
+
+
+
+
+
+
+
+	</div><!--end of container-->
+	<!-- script -->
+	<script>
+		//arrays
+		menu = [[], []];
+		statusList = ['recived', 'processing', 'boxing', 'sent'];
+		order = [[], []];//order arr
+		orderList = [];//order that paid
+		totalSum = [];
+		catagoryArr = [];//catagory array that loaded from local
+
+
+
+		//global var
+
+		totalDish = 0;//dish counter in current order
+		totalOrders = 0;//total orders in current moment
+		totalPrice = 0;//total price to the order
+		memberPrice = 0;//total member price to the order
+		totalFav = 0;//total favorites
+
+
+		//create menu
+		BuildMenu();
+		
+
+
+
+		/*show and hide*/
+		//show and hide
+		$('.container').hide()
+		hide("credit_pay");
+
+		//show manger view
+		function Manger() {
+			$('.container').show()
+			$('.Member').hide()
+			$('.Guest').hide()
+			$('.Manger').show()
+			hide("credit_pay");
+		}
+
+		//show guest view
+		function Guest() {
+			$('.container').show()
+			$('.Member').hide()
+			$('.Manger').hide()
+			$('.Guest').show()
+			hide("credit_pay");
+		}
+
+		//show member view
+		function Member() {
+			$('.container').show()
+			$('.Manger').hide()
+			$('.Guest').hide()
+			$('.Member').show()
+			hide("credit_pay");
+
+		}
+
+		function RESET() {
+			localStorage.clear();
+			location.reload();
+		}
+
+
+		//show element
+		function show(elementID) {
+			$("#" + elementID).show();
+		}
+		//hide element
+		function hide(elementID) {
+			$("#" + elementID).hide();
+		}
+
+		/*remove generic items*/
+
+		//remove button
+		function removeButton(elementButton) {
+			var myButton = document.getElementById(elementButton);
+			myButton.remove();
+		}
+		//clear div
+		function clearDIV(elementID) {
+			document.getElementById(elementID).innerHTML = "";
+		}
+		//refresh the page
+		function refresh() {
+			location.reload();
+		}
+
+
+
+
+
+		/* Interfaces*/
+
+		//Manger Interface
+		/**
+		 * 
+		 * @param orderNumber number of the order that will be construct in the order table
+		 */
+		function addOrderToManger(orderNumber) {
+
+			var thisOrder = orderList[orderNumber];
+			var cost = thisOrder[1];
+
+			var numDished = (thisOrder.length - 1) / 5;
+			var orderSec = document.getElementById("order_Managment");
+			orderSec.innerHTML += '<section><table class="Manger Member Guest  col-sm-12 col-md-8 " id="orderTable' + orderNumber + '" class=" col-sm-12"><tr class="Manger" id="order_tbl_' + orderNumber + '" > </table>';
+			var orderTable = document.getElementById("orderTable" + orderNumber + "");
+			orderTable.innerHTML = '<tr>';
+			orderTable.innerHTML += ' <th scope="col"><h1>Order Number ' + orderNumber + '</h1></th>';
+			for (var i = 0; i < numDished; i++) {
+				var index = 0 + i * 5;
+				orderTable.innerHTML += '<td>' + thisOrder[index].itemName + '</td>';
+			}
+			orderTable.innerHTML += '<td class="class="Manger Member Guest" id="status_Order_' + orderNumber + '"><h3>Status:' + thisOrder[thisOrder.length - 1] + '</h3></td > ';
+			orderTable.innerHTML += '<td><input type="submit" class="Manger" id="status_1_' + orderNumber + '" onclick = changeStatus(' + orderNumber + ') value = "Change Status" ></td> ';
+			orderTable.innerHTML += '</tr></section>';
+
+
+		}
+
+
+
+
+
+
+
+		/*Orders*/
+		/**
+		 * 
+		 * @param orderNum order number to be removed
+		 */
+		//remove OrderFromLocal
+		function removeOrderFromLocaL(orderNum) {//remove item from local DB
+			localStorage.removeItem('order' + orderNum);
+		}
+
+		//store order to Local storage
+		/**
+		 * 
+		 * @param name unique number of the order
+		 * @param price price of the order
+		 */
+		function storeOrder(name, price) {
+
+			var tmp_1 = [];
+			for (var i = 0; i < order[0].length; i++) {
+
+				tmp_1.push({ itemName: order[0][i] });
+			}
+
+			var tmp = [];
+			tmp.push({ name: name, items: JSON.stringify(tmp_1), status: "recived" });
+
+			orderList.push(JSON.stringify(tmp));
+			localStorage.setItem("order" + totalOrders, JSON.stringify(orderList));
+		}
+
+		//load Orders from local storage
+		/**
+		 * loading from local storage
+		 * */
+		function loadFromLocal() {
+			if (Object.keys(catagory).length == localStorage.length)
+				return;
+			else
+				for (var i = Object.keys(catagory).length; i < localStorage.length; i++) {//first index for catagory
+					parseOrder(i - Object.keys(catagory).length);
+				}
+		}
+
+		//parse JSON to order
+		/**
+		 * 
+		 * @param name number of the order to recover from localstorage
+		 */
+		function parseOrder(name) {
+
+			var tmp = localStorage.getItem('order' + name + '');
+			var tmp_t = JSON.parse(tmp);
+
+			var tmp_S = JSON.parse(tmp_t[totalOrders]);
+			var tmp_Item = JSON.parse(tmp_S[0].items);
+			orderList.push(tmp_Item);
+			orderList[totalOrders].push(tmp_S[0].status);
+
+
+			addOrderToManger(totalOrders);
+
+
+			totalOrders++;
+
+		}
+
+		//change status of an order
+		/**
+		 * 
+		 * @param orderNumber number of the order that the status will be changed after it moved to the next stage of the order
+		 */
+		function changeStatus(orderNumber) {
+
+			var thisOrderStatus = orderList[orderNumber][orderList[orderNumber].length - 1];
+			if (thisOrderStatus.localeCompare(statusList[0]) == 0) {
+				orderList[orderNumber][orderList[orderNumber].length - 1] = statusList[1];
+			}
+			else {
+				if (thisOrderStatus.localeCompare(statusList[1]) == 0) {
+					orderList[orderNumber][orderList[orderNumber].length - 1] = statusList[2];
+				}
+				else {
+					if (thisOrderStatus.localeCompare(statusList[2]) == 0) {
+						orderList[orderNumber][orderList[orderNumber].length - 1] = statusList[3];
+					}
+					else {//finish the order
+						removeOrderFromLocaL(orderNumber);
+						clearDIV("orderTable" + orderNumber);
+						return;
+					}
+				}
+			}
+
+			updateStatusOrder(orderNumber, orderList[orderNumber][orderList[orderNumber].length - 1]);
+			clearDIV("status_Order_" + orderNumber + "");
+			var statusCell = document.getElementById("status_Order_" + orderNumber + "");
+			statusCell.innerHTML = '<h3>Status:' + orderList[orderNumber][orderList[orderNumber].length - 1] + '</h3>';
+
+
+		}
+
+		//add to order
+		/**
+		 * 
+		 * @param thisObj for future use
+		 * @param cat_num catagory number based on the external json 
+		 * @param meal_index the meal index in the catagory in the json
+		 */
+		function addToOrder(thisObj, cat_num, meal_index) {
+			totalDish++;
+
+			var thisMeal = catagoryArr[cat_num].meal_list[meal_index];
+			order[0].push(thisMeal.name, thisMeal.description, thisMeal.price, thisMeal.specialPrice, thisMeal.picture);
+			totalPrice += thisMeal.price;
+			memberPrice += thisMeal.specialPrice;
+			updateSum();
+
+			var thisOrder = document.getElementById("total_order");
+			thisOrder.innerHTML += '<div id="dish_' + totalDish + '">'
+
+				+ ' <div class="titleOrder card-header Member Guest"> ' + thisMeal.name + '</div>'
+				+ '<div class="card-body">'
+				+ '<ul class="list-group list-group-flush">'
+				+ '<li class="list-group-item Member Guest"> Price: ' + thisMeal.price + '</li >'
+				+ '<li class="list-group-item Member"> Member Price: ' + thisMeal.specialPrice + '</li >'
+				+ '</ul > '
+				+ '<input type="button" class="btn btn-primary Member Guest" id="remove_' + totalDish + '"  onclick = removeFromOrder(' + totalDish + ',' + thisMeal.price + ',' + thisMeal.specialPrice + ') value = "remove" > '
+				+ '</div>'
+				+ '</div>'
+				+ '</div>';
+		}
+
+		//remove from order
+		/**
+		 * 
+		 * @param elementID unique id of the css element 
+		 * @param price	price of the order
+		 * @param specialPrice member price of the order
+		 */
+		function removeFromOrder(elementID, price, specialPrice) {
+			clearDIV("dish_" + elementID);
+			totalPrice -= price;
+			memberPrice -= specialPrice;
+			removeButton("remove_" + elementID);
+			updateSum();
+			order[0].splice(elementID - 1, 5);
+
+		}
+
+		//update sum in the table
+		/**
+		 * 
+		 * @param name order number
+		 * @param status status the order will be update to
+		 */
+		function updateStatusOrder(name, status) {
+			var tmp_1 = [];
+
+			for (var i = 0; i < orderList[name].length; i++) {
+
+				tmp_1.push({ itemName: orderList[name][i].itemName });
+			}
+
+			var tmp = [];
+			tmp.push({ name: name, items: JSON.stringify(tmp_1), status: '' + status });
+			var tmp_order = [];
+
+			tmp_order.push(JSON.stringify(tmp));
+			removeOrderFromLocaL(name);
+			localStorage.setItem("order" + name, JSON.stringify(tmp_order));
+
+		}
+
+
+
+		/*payment*/
+
+		//payment accepted ,created order
+		/**
+		 * 
+		 * @param orderNumber order number that recived a payment
+		 * @param sumToPay	sum of the payment
+		 */
+		function startProcess(orderNumber, sumToPay) {
+			storeOrder(orderNumber, sumToPay)
+			alert("order number #" + orderNumber + " sucsseful recived!")
+			hide("credit_pay");
+			addOrderToManger(orderNumber);
+			totalOrders++;
+			location.reload();
+		}
+
+
+		//Pay total sum on the cart
+		/**
+		 * 
+		 * @param sumToPay the sum that will be sent as a pay
+		 */
+		function sendPayment(sumToPay) {
+
+			clearDIV("finalPayment");
+			var thisOrderPay = document.getElementById("finalPayment");
+			thisOrderPay.innerHTML += sumToPay;
+			var thisOrderPayButton = document.getElementById("payButton");
+
+			thisOrderPayButton.innerHTML = '<input class="Member Guest" type="submit" onclick=startProcess(' + totalOrders + ',' + sumToPay + ') value="pay order number#' + totalOrders + '">';
+			show("credit_pay");
+		}
+
+		//update sum
+		/**
+		 * update the sum if the sum has been changed
+		 * */
+		function updateSum() {
+			var thisOrderSum = document.getElementById("total_sum");
+			var thisOrderSumMember = document.getElementById("total_sum_member");
+			clearDIV("total_sum");
+			clearDIV("total_sum_member");
+			totalSum.push(totalPrice, memberPrice);
+			thisOrderSum.innerHTML = '<h1 class="Guest"> Total Sum: ' + totalPrice + "</h1>";
+			thisOrderSumMember.innerHTML = '<h1 class="Member"> Total Member Sum : ' + memberPrice + "</h1></div>";
+
+			if (totalPrice > 0) {//show only if there somthing to pay on
+				thisOrderSum.innerHTML += ' <div><input type="submit" class="Guest" id="pay" onclick=sendPayment(' + totalPrice + ') value="Pay: ' + totalPrice + '">';
+				thisOrderSumMember.innerHTML += ' <div><input type="submit" class="Member" id="payMember" onclick=sendPayment(' + memberPrice + ') value="Pay: ' + memberPrice + '">';
+				show("credit_pay");
+
+			}
+
+
+		}
+
+
+		/*favorites*/
+
+		//add to favorite
+		/**
+		 * 
+		 * @param mealObj for future use
+		 * @param cat_num number of the catagory
+		 * @param meal_index index of the meal in the catagory
+		 */
+		function addToFavorite(mealObj, cat_num, meal_index) {
+			var thisMeal = catagory[cat_num].meal_list[meal_index];
+			totalFav++;
+			var favourites = document.getElementById("favorite_div");
+
+			favourites.innerHTML += '<div id=favour_' + totalFav + ' class="card" > <input type="button" id="add_f_' + cat_num + '_' + meal_index + '" onclick="addToOrder(this,' + cat_num + ',' + meal_index + ')" value="Add to Order ' + thisMeal.name + '"></div>';
+			favourites.innerHTML += ' <input type="button" class="Member" id="remove_f_' + cat_num + '_' + meal_index + '" onclick="removeFromFavorite(' + totalFav + ',' + cat_num + ',' + meal_index + ')" value="Remove From Favourite ' + thisMeal.name + '">';
+
+		}
+		//remove from favorite
+		/**
+		 * 
+		 * @param totalFav  total favorite that listed
+		 * @param cat_num	catagory num
+		 * @param meal_index index of the meal in the catagory
+		 */
+		function removeFromFavorite(totalFav, cat_num, meal_index) {
+
+			totalFav--;
+			removeButton("add_f_" + cat_num + '_' + meal_index + "");
+
+			removeButton("remove_f_" + cat_num + '_' + meal_index + "");
+			clearDIV("favour_" + totalFav + "");
+		}
+
+
+		//buildMenu
+		/**
+		 * building the menu based on the catagories
+		 * */
+		function BuildMenu() {
+
+			localParseJs();//copy local storage into program array
+			if (catagoryArr.length == 0) {
+				jsTolocalDefault();
+				localParseJs();
+			}
+			for (var i = 0; i < Object.keys(catagory).length; i++) {
+				buildCat(i);
+			}
+			hide("credit_pay");
+			loadFromLocal();
+		}
+
+		/**
+		 * 
+		 * @param catNum to which catagory i want to add the dish
+		 * @param dishName dish name
+		 * @param dishDes dish description
+		 * @param dishPrice dish price
+		 * @param dishMemPrice dish member price
+		 * @param dishPic dish picture
+		 */
+		function addNewDishToCat(catNum, dishName, dishDes, dishPrice, dishMemPrice, dishPic) {
+
+			var tmp = [];
+			var inTmp = [];
+			for (var i = 0; i < Object.keys(catagoryArr[catNum].meal_list).length; i++) {
+				inTmp.push(catagoryArr[catNum].meal_list[i]);
+			}
+			inTmp.push({ name: dishName, description: dishDes, price: dishPrice, specialPrice: dishMemPrice, picture: dishPic });
+			catagoryArr.push({ cat_name: catagoryArr[catNum].cat_name, meal_list: inTmp });
+			catagoryArr.splice(catNum, 1);
+			jsTolocalNew();
+			refresh();
+		}
+
+		/*Catagories*/
+		//Catagory DEFAULT JSON array to localStorage
+		/**
+		 * 
+		 * */
+		function jsTolocalDefault() {
+			for (var i = 0; i < Object.keys(catagory).length; i++) {
+				localStorage.setItem('catagory' + i, JSON.stringify(catagory[i]));
+			}
+		}
+
+		////Catagory NEW JSON array to localStorage
+		/**
+		 * 
+		 * */
+		function jsTolocalNew() {
+			for (var i = 0; i < catagoryArr.length; i++) {
+				localStorage.setItem('catagory' + i, JSON.stringify(catagoryArr[i]));
+			}
+
+		}
+
+		//Catagory localStorage to JSON array
+		function localParseJs() {
+
+			var index = 0;
+			var tmp = [];
+			var tmp_1 = [];
+
+			//only when key exist in the localStorage
+			while (localStorage.getItem('catagory' + index) != null) {
+				//init
+				tmp = [];
+				tmp_1 = [];
+
+				//start to parse
+				tmp = localStorage.getItem('catagory' + index);
+				tmp_1 = JSON.parse(tmp);
+				catagoryArr.push(tmp_1);//push into catagoryArr
+				index++;
+			}
+
+		}
+
+		//remove dish from menu
+		/**
+		 * 
+		 * @param mealObj TBD future use
+		 * @param cat_num catagory number of the dish
+		 * @param meal_index index in the catagory of the dish
+		 */
+		function removeFromMenu(mealObj, cat_num, meal_index) {
+			clearDIV('card_' + cat_num + '_' + meal_index);
+
+			var tmp = [];
+			var inTmp = [];
+			for (var i = 0; i < Object.keys(catagoryArr[cat_num].meal_list).length; i++) {
+				if (meal_index != i) {
+					inTmp.push(catagoryArr[cat_num].meal_list[i]);
+				}
+
+			}
+
+			catagoryArr.push({ cat_name: catagoryArr[cat_num].cat_name, meal_list: inTmp });
+			catagoryArr.splice(cat_num, 1);
+			jsTolocalNew();
+			refresh();
+		}
+		//catagory builder into menu
+		/**
+		 * 
+		 * @param num building catagory based on catagoryArray always updating into localstorage
+		 */
+		function buildCat(num)//catagory builder
+		{
+			var subMenu = document.getElementById("cat_" + num);
+			subMenu.innerHTML = "";
+			subMenu.innerHTML += "<section><div class='catTitle'><p><h1>" + catagoryArr[num].cat_name + "</h1></p></div>"
+			subMenLength = Object.keys(catagoryArr[num].meal_list).length;//how many meal in this catagory
+			var picSrc = "";
+			for (var i = 0; i < subMenLength; i++) {
+				thisMeal = catagoryArr[num].meal_list[i];
+
+				subMenu.innerHTML += '<div class="col-sm-12 col-md-12 col-xl-12" id="card_' + num + '_' + i + '"><div class="card Manger Member Guest col-sm-12 col-md-12 col-xl-12" >'
+					+ '<img class="card-img-top Manger Member Guest" src=' + thisMeal.picture + ' alt="" /> '
+					+ '<div class="card-body">'
+					+ '<h4 class="card-title Manger Member Guest">' + thisMeal.name + ' </h4 > '
+					+ '<h4 class="card-text Manger Member Guest">' + thisMeal.description + '</h4 > '
+					+ '</div>'
+
+					+ '<h4 class="card-text Guest">Price: ' + thisMeal.price + ' </h4 > '
+					+ '<h4 class="card-text Member">Member price: ' + thisMeal.specialPrice + ' </h4 > '
+
+					+ '<input type="button" class="Member Guest" id="add_' + num + '_' + i + '" onclick="addToOrder(this,' + num + ',' + i + ')" value="Add to Order">'
+					+ '<input type="button" class="Member" id="add_' + num + '_' + i + '" onclick="addToFavorite(this,' + num + ',' + i + ')" value="Add To Favorite">'
+					+ '<input type="button" class="Manger" id="remove_' + num + '_' + i + '" onclick="removeFromMenu(this,' + num + ',' + i + ')" value="removeFromMenu">'
+					+ '</div>'
+					+ '</div>';
+			}
+			subMenu.innerHTML += '</section>';
+		}
+
+	</script>
+
+
+
+
+</body>
+</html>
